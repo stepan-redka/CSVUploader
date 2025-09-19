@@ -84,23 +84,67 @@
     async function saveRow(button, contactId) {
         const row = button.closest('tr');
         const updatedContact = { Id: contactId };
+        let isValid = true;
+        let errorMessage = '';
 
         row.querySelectorAll('[contenteditable]').forEach(cell => {
             const field = cell.getAttribute('data-field');
-            switch(field) {
+            const value = cell.textContent.trim();
+
+            switch (field) {
+                case 'Name':
+                    if (!value) {
+                        isValid = false;
+                        errorMessage += 'Name cannot be empty.\n';
+                    }
+                    updatedContact[field] = value;
+                    break;
                 case 'DateOfBirth':
-                    updatedContact[field] = new Date(cell.textContent).toISOString();
+                    if (isNaN(Date.parse(value))) {
+                        isValid = false;
+                        errorMessage += 'Date of Birth must be a valid date.\n';
+                    } else {
+                        updatedContact[field] = new Date(value).toISOString();
+                    }
                     break;
                 case 'Married':
-                    updatedContact[field] = cell.textContent.toLowerCase() === 'true';
+                    if (value.toLowerCase() !== 'true' && value.toLowerCase() !== 'false') {
+                        isValid = false;
+                        errorMessage += 'Married must be either true or false.\n';
+                    }
+                    updatedContact[field] = value.toLowerCase() === 'true';
+                    break;
+                case 'Phone':
+                    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+                    if (!phoneRegex.test(value)) {
+                        isValid = false;
+                        errorMessage += 'Phone must match the pattern 789-123-4567.\n';
+                    }
+                    updatedContact[field] = value;
                     break;
                 case 'Salary':
-                    updatedContact[field] = parseFloat(cell.textContent) || 0;
+                    const salary = parseFloat(value);
+                    if (isNaN(salary) || salary < 0) {
+                        isValid = false;
+                        errorMessage += 'Salary must be a positive number.\n';
+                    }
+                    updatedContact[field] = salary;
                     break;
                 default:
-                    updatedContact[field] = cell.textContent;
+                    updatedContact[field] = value;
             }
         });
+
+        if (!isValid) {
+            alert(`Validation failed:\n${errorMessage}`);
+            const originalContact = contacts.find(c => c.Id === contactId);
+            // Revert fields to original values
+            row.querySelectorAll('[contenteditable]').forEach(cell => {
+                const field = cell.getAttribute('data-field');
+                cell.innerHTML = field === "DateOfBirth" ? (new Date(originalContact[field]).toLocaleDateString()) : originalContact[field];
+            });
+            return;
+        }
 
         try {
             const response = await fetch('/Doc/UpdateContact', {
