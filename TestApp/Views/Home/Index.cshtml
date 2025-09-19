@@ -1,27 +1,19 @@
-﻿@model IEnumerable<TestApp.Models.Contact>
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
 
-<h2>Contacts</h2>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Date of Birth</th>
-        <th>Married</th>
-        <th>Phone</th>
-        <th>Salary</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var c in Model)
-    {
-        <tr>
-            <td>@c.Name</td>
-            <td>@c.DateOfBirth.ToShortDateString()</td>
-            <td>@c.Married</td>
-            <td>@c.Phone</td>
-            <td>@c.Salary</td>
-        </tr>
-    }
-    </tbody>
-</table>
+<div class="text-center">
+    <h1 class="display-4">Welcome to TestApp</h1>
+    <h2>Get Started</h2>
+    <p>Use the navigation bar to explore the app. Start by adding your first contact or uploading a document!</p>
+    <hr>
+    <h2>Features</h2>
+    <ul class="list-unstyled">
+        <li>✔️ Manage your contacts with ease</li>
+        <li>✔️ Upload and organize CSV-documents</li>
+        <li>✔️ Inline editing for quick updates</li>
+        <li>✔️ Secure and reliable</li>
+        <li>✔️ Search and filtering options</li>
+    </ul>
+    <hr>
+</div>

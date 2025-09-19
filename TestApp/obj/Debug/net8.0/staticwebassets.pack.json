@@ -5,8 +5,28 @@
       "PackagePath": "staticwebassets/TestApp.bundle.scp.css"
     },
     {
+      "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/Documents.css",
+      "PackagePath": "staticwebassets/css/Documents.css"
+    },
+    {
+      "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/Index.css",
+      "PackagePath": "staticwebassets/css/Index.css"
+    },
+    {
+      "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/Privacy.css",
+      "PackagePath": "staticwebassets/css/Privacy.css"
+    },
+    {
+      "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/Upload.css",
+      "PackagePath": "staticwebassets/css/Upload.css"
+    },
+    {
       "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/css/theme.css",
+      "PackagePath": "staticwebassets/css/theme.css"
     },
     {
       "Id": "/home/stepan/Documents/test/TestApp/TestApp/wwwroot/favicon.ico",

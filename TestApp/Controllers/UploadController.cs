@@ -34,18 +34,21 @@ public class UploadController : Controller
         using var reader = new StreamReader(file.OpenReadStream());
         int lineNumber = 0;
 
-        while (!reader.EndOfStream)
+        String ext = Path.GetExtension(file.FileName).ToLower();
+        if (ext == ".csv")
         {
-            var line = await reader.ReadLineAsync();
-            lineNumber++;
+            while (!reader.EndOfStream)
+            {
+                var line = await reader.ReadLineAsync();
+                lineNumber++;
 
-            if (string.IsNullOrWhiteSpace(line)) continue;
-            if (lineNumber == 1 && line.StartsWith("Name")) continue; // Skip header row
+                if (string.IsNullOrWhiteSpace(line)) continue;
+                if (lineNumber == 1 && line.StartsWith("Name")) continue; // Skip header row
 
-            var parts = line.Split(',');
+                var parts = line.Split(',');
 
-            if (parts.Length != 5) continue; // Basic validation
-            
+                if (parts.Length != 5) continue; // Basic validation
+
                 var contact = new Contact
                 {
                     Name = parts[0].Trim(),
@@ -56,14 +59,20 @@ public class UploadController : Controller
                 };
 
                 _dbContext.Contacts.Add(contact);
+            }
+
+            _logger.LogInformation("Saving changes...");
+
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("Documents", "Doc");
         }
-        
-        _logger.LogInformation("Saving changes...");
-
-        await _dbContext.SaveChangesAsync();
-        return RedirectToAction("Documents", "Doc");
-
+        else
+        {
+            ModelState.AddModelError("", "Only CSV files are allowed.");
+            return View("Upload");
+        }
     }
+    
 
     
     

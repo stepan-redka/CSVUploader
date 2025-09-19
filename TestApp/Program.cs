@@ -4,7 +4,7 @@ using TestApp.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 //connecting to sql server
 builder.Services.AddDbContext<DbAppContext>(options =>
