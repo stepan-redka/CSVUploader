@@ -2,6 +2,9 @@
     ViewData["Title"] = "Upload CSV";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Main Logic</h1>
-</div>
+<h2>Upload CSV</h2>
+
+<form asp-action="UploadFile" asp-controller="Upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" accept=".csv" />
+    <button type="submit">Upload</button>
+</form>
