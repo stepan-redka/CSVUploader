@@ -1,0 +1,14 @@
+/* Styles for Upload page */
+
+body {
+    font-family: Verdana, sans-serif;
+    background-color: #f0f0f0;
+}
+
+form {
+    margin: 20px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
