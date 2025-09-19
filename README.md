@@ -7,12 +7,11 @@ TestApp is a web application designed to manage contacts and documents efficient
 - **Document Upload**: Upload and organize documents in CSV format.
 - **Inline Editing**: Quickly update data directly in the table.
 - **Search and Filter**: Advanced search functionality to find data quickly.
-- **Responsive Design**: Optimized for all devices.
 
 ## Prerequisites
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/)
 - [Docker](https://www.docker.com/)
-- A modern web browser
+- A web browser
 
 ## Setting Up SQL Server with Docker
 This project uses SQL Server running in a Docker container. Follow these steps to set it up:
@@ -68,8 +67,6 @@ Replace `<password>` with the password you set for the SQL Server container.
    dotnet run
    ```
 
-5. Open your browser and navigate to `http://localhost:5000`.
-
 ## Usage
 - Navigate to the **Home** page to see an overview of the application.
 - Use the **Upload** page to upload CSV files.
@@ -81,9 +78,4 @@ Replace `<password>` with the password you set for the SQL Server container.
 - **SQL Server**: Database
 - **Docker**: Containerized SQL Server
 - **Bootstrap**: Frontend styling
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Updated project name and added detailed setup instructions for SQL Server with Docker, including prerequisites, configuration, and usage guidelines.
