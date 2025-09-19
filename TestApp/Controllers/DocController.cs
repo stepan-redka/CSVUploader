@@ -16,13 +16,13 @@ public class DocController : Controller
     public IActionResult Documents()
     {
         var contacts = _dbContext.Contacts.ToList(); // data from db
-        return View(contacts); 
+        return View(contacts);
     }
-    
+
     [HttpPost]
     public IActionResult UpdateContact([FromBody] Contact updatedContact)
     {
-        if (updatedContact == null || updatedContact.Id <= 0)
+        if (updatedContact.Id <= 0)
         {
             return BadRequest("Invalid contact data.");
         }
@@ -43,22 +43,24 @@ public class DocController : Controller
 
         return Ok("Contact updated successfully.");
     }
-    
-    [HttpDelete("DeleteContact/{id}")]
+    [Route("/Doc/DeleteContact/{id}")]
+    [HttpDelete("/Doc/DeleteContact/{id}")]
     public IActionResult DeleteContact(int id)
     {
         var contact = _dbContext.Contacts.FirstOrDefault(c => c.Id == id);
         if (contact == null)
         {
+            Console.WriteLine("Contact not found"); // Log not found
             return NotFound("Contact not found.");
         }
 
         _dbContext.Contacts.Remove(contact);
         _dbContext.SaveChanges();
 
+        Console.WriteLine("Contact deleted successfully"); // Log success
         return Ok("Contact deleted successfully.");
     }
-    
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
