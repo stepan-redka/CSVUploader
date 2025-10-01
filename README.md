@@ -1,6 +1,6 @@
 # TestApp
 
-TestApp is a web application designed to manage contacts and documents efficiently. It provides features such as uploading CSV files, inline editing, and a user-friendly interface for managing data.
+This app is a web application designed to manage contacts and documents efficiently. It provides features such as uploading CSV files, inline editing, and a user-friendly interface for managing data.
 
 ## Features
 - **Contact Management**: Add, edit, and delete contacts with ease.
