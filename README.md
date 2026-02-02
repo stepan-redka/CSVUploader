@@ -1,81 +1,103 @@
 # TestApp
 
-TestApp is a web application designed to manage contacts and documents efficiently. It provides features such as uploading CSV files, inline editing, and a user-friendly interface for managing data.
+ASP.NET Core web application for contact management with CSV import functionality.
 
-## Features
-- **Contact Management**: Add, edit, and delete contacts with ease.
-- **Document Upload**: Upload and organize documents in CSV format.
-- **Inline Editing**: Quickly update data directly in the table.
-- **Search and Filter**: Advanced search functionality to find data quickly.
+## Architecture
+
+Clean Architecture implementation with clear separation of concerns:
+
+### Core Layer
+Domain entities and interfaces independent of external dependencies.
+
+- **Entities**: Domain models (Contact, ErrorViewModel)
+- **Interfaces**: Repository and service contracts
+
+### Infrastructure Layer
+External dependencies and data access implementations.
+
+- **Data**: DbContext and database configurations
+- **Repositories**: Data access implementations
+- **Services**: Business logic implementations
+
+### Web Layer
+Presentation logic and user interface.
+
+- **Controllers**: HTTP request handlers
+- **DTOs**: Data transfer objects with validation
+- **Views**: Razor templates
+- **Middleware**: Custom middleware components
 
 ## Prerequisites
-- [.NET 8.0 SDK](https://dotnet.microsoft.com/)
-- [Docker](https://www.docker.com/)
-- A web browser
 
-## Setting Up SQL Server with Docker
-This project uses SQL Server running in a Docker container. Follow these steps to set it up:
+- .NET 8.0 SDK
+- Docker and Docker Compose (recommended)
+- SQL Server 2022 (if not using Docker)
 
-1. Pull the SQL Server Docker image:
+## Quick Start
+
+### Using Docker Compose (Recommended)
+
+```bash
+docker-compose up --build
+```
+
+Application available at: `http://localhost:5000`
+
+### Manual Setup
+
+1. Configure database connection:
    ```bash
-   docker pull mcr.microsoft.com/mssql/server:2025-latest
+   cp TestApp/appsettings.Development.json.example TestApp/appsettings.Development.json
+   ```
+   Update connection string with your credentials.
+
+2. Run migrations:
+   ```bash
+   dotnet ef database update --project TestApp/TestApp.csproj
    ```
 
-2. Run the SQL Server container:
+3. Start application:
    ```bash
-   docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=<password>" \
-      -p 1433:1433 --name sql1 --hostname sql1 \
-      -d \
-      mcr.microsoft.com/mssql/server:2025-latest
+   dotnet run --project TestApp/TestApp.csproj
    ```
-   Replace `<password>` with a strong password.
 
-3. Verify the container is running:
-   ```bash
-   docker ps
-   ```
+## Features
+
+- Contact CRUD operations
+- CSV file import with validation
+- Asynchronous data operations
+- Structured logging
+- Global exception handling
+- Data validation with DTOs
+
+## Technology Stack
+
+- ASP.NET Core 8.0
+- Entity Framework Core
+- SQL Server 2022
+- Docker
+
+## Project Structure
+
+```
+TestApp/
+├── Core/
+│   ├── Entities/           # Domain models
+│   └── Interfaces/         # Repository and service contracts
+├── Infrastructure/
+│   ├── Data/              # DbContext and migrations
+│   ├── Repositories/      # Data access implementations
+│   └── Services/          # Business logic implementations
+└── Web/
+    ├── Controllers/       # HTTP endpoints
+    ├── DTOs/             # Data transfer objects
+    ├── Middleware/       # Custom middleware
+    ├── Views/            # Razor views
+    └── wwwroot/          # Static files
+```
 
 ## Configuration
-Update the connection string in `Program.cs` to match your SQL Server setup:
-```csharp
-builder.Services.AddDbContext<DbAppContext>(options =>
-{
-    options.UseSqlServer(
-        "Server=localhost,1433;Database=TestDb;User Id=sa;Password=<password>;TrustServerCertificate=True");
-});
-```
-Replace `<password>` with the password you set for the SQL Server container.
 
-## Running the Application
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/stepan-redka/testApp.git
-   ```
+Connection strings and logging configuration are managed through `appsettings.json`. Environment-specific settings should be placed in `appsettings.Development.json` or `appsettings.Production.json`.
 
-2. Navigate to the project directory:
-   ```bash
-   cd testApp/TestApp
-   ```
-
-3. Restore dependencies:
-   ```bash
-   dotnet restore
-   ```
-
-4. Run the application:
-   ```bash
-   dotnet run
-   ```
-
-## Usage
-- Navigate to the **Home** page to see an overview of the application.
-- Use the **Upload** page to upload CSV files.
-- Manage your contacts and documents on the **Documents** page.
-
-## Technologies Used
-- **ASP.NET Core**: Backend framework
-- **Entity Framework Core**: ORM for database operations
-- **SQL Server**: Database
-- **Docker**: Containerized SQL Server
-- **Bootstrap**: Frontend styling
-Updated project name and added detailed setup instructions for SQL Server with Docker, including prerequisites, configuration, and usage guidelines.
+For production deployments, use environment variables or secure secret management solutions.
