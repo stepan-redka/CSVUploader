@@ -1,0 +1,49 @@
+# Docker ignore file for TestApp
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE and editor files
+.idea/
+.vs/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Build output
+**/bin/
+**/obj/
+**/out/
+
+# NuGet
+**/packages/
+*.nupkg
+
+# Test results
+TestResults/
+*.trx
+
+# User-specific files
+*.user
+*.suo
+
+# Documentation
+*.md
+!README.md
+
+# Docker files (no need to copy these into the image)
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+azure-pipelines.yml
+
+# Misc
+*.log
+.DS_Store
