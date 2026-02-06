@@ -72,7 +72,7 @@ Application available at: `http://localhost:5000`
 
 ## Technology Stack
 
-- ASP.NET Core 8.0
+- ASP.NET Core 8.0 
 - Entity Framework Core
 - SQL Server 2022
 - Docker
